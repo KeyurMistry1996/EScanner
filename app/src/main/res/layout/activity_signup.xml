@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/signup_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Sign Up"
+        android:textColor="@color/white_greyish"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/fullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_account_box_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="clip_vertical"
+        android:hint="Full Name"
+        android:inputType="textCapWords"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish"/>
+
+    <EditText
+        android:id="@+id/userEmailId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_mail_outline_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish"/>
+
+    <EditText
+        android:id="@+id/mobileNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_phone_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="Mobile No"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish"/>
+
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_location_on_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="Location"
+        android:inputType="textCapWords"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_lock_outline_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish"/>
+
+    <EditText
+        android:id="@+id/confirmpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_lock_outline_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <CheckBox
+        android:id="@+id/terms_conditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="By clicking SignUp you agree all the Terms and Conditions."
+        android:textColor="@color/white"
+        android:buttonTint="@color/white"
+        android:textSize="14sp"/>
+
+    <Button
+        android:id="@+id/signUpBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_selector"
+        android:padding="3dp"
+        android:text="Sign Up"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/alreay_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Already have Account? Login here."
+        android:textColor="@color/text_selector"
+        android:textSize="15sp"/>
+</LinearLayout>

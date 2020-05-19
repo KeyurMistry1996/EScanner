@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_bill"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Bills" />
+        <item
+            android:id="@+id/nav_cam_ocr"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Scan" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_email"
+            android:icon="@drawable/ic_send_black_24dp"
+            android:title="Email" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="About" />
+        <item android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
+            android:title="Logout"/>
+    </group>
+</menu>

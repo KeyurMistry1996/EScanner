@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/forgotpassword_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Please enter your Registered Email Id below:"
+        android:textColor="@color/white_greyish"
+        android:textSize="17sp"/>
+
+    <EditText
+        android:id="@+id/registered_emailid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_mail_outline_white_24dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/backToLoginBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="5dp"
+            android:text="BACK"
+            android:textColor="@color/text_selector"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:onClick="back"/>
+
+        <TextView
+            android:id="@+id/forgot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:padding="5dp"
+            android:text="SUBMIT"
+            android:textColor="@color/text_selector"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:onClick="submit"/>
+    </RelativeLayout>
+
+</LinearLayout>

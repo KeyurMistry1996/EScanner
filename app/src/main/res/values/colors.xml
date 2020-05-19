@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4d4d4d</color>
+    <color name="colorPrimaryDark">#4d4f4f</color>
+    <color name="colorAccent">#f4a934</color>
+    <color name="textColorPrimary">#ffff00</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#4d4d4d</color>
+    <color name="navtabcolor">#4d4f4f</color>
+    <color name="statusBarColor">#737373</color>
+    <color name="tabColor">#125988</color>
+    <color name="profileBackground">#125688</color>
+    <color name="ripple">#99d4d4d4</color>
+    <color name="fabpressed">#dc4b3f</color>
+    <color name="videobar">#f4a934</color>
+    <color name="background_color">#009688</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#9E9E9E</color>
+    <color name="uploadcolor">#e6e6e6</color>
+    <color name="cardViewBack">#ccffff</color>
+</resources>
