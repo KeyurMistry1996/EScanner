@@ -51,7 +51,8 @@
             android:textColor="@color/text_selector"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:onClick="back"/>
+            android:onClick="back"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/forgot_button"

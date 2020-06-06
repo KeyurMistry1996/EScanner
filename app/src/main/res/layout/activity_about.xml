@@ -10,5 +10,6 @@
         android:layout_centerVertical="true"
         android:text="EPay Software"
         style="@style/Base.TextAppearance.AppCompat.Large"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:gravity="center_horizontal" />
 </RelativeLayout>

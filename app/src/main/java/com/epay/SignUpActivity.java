@@ -43,14 +43,11 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
     private static FirebaseAuth mAuth;
     private static ProgressDialog registerProgress;
 
-    public SignUpActivity(){
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.activity_signup,container,false);
+        view = inflater.inflate(R.layout.activity_signup, container, false);
         initViews();
         setListners();
         return view;
@@ -68,7 +65,7 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
         login = (TextView) view.findViewById(R.id.alreay_user);
         terms_conditions = (CheckBox) view.findViewById(R.id.terms_conditions);
         signUpLayout = (LinearLayout) view.findViewById(R.id.signup_layout);
-        shakeAnimation = AnimationUtils.loadAnimation(getActivity(),R.anim.shake);
+        shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
         registerProgress = new ProgressDialog(getActivity());
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -83,10 +80,10 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.signUpBtn:
                 boolean valid = checkValidation();
-                if(valid) doSignUp();
+                if (valid) doSignUp();
                 break;
             case R.id.alreay_user:
                 new Authenticate().replaceLoginFragment();
@@ -104,13 +101,13 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
         final String getEmailID = emailId.getText().toString().trim();
         String getPassword = password.getText().toString().trim();
 
-        mAuth.createUserWithEmailAndPassword(getEmailID,getPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(getEmailID, getPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     Toast.makeText(getActivity(), "Register Error", Toast.LENGTH_SHORT).show();
                     registerProgress.dismiss();
-                }else{
+                } else {
                     final String user_id = mAuth.getCurrentUser().getUid();
 
                     userReference = mDatabase.child(user_id);
@@ -134,7 +131,7 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
         String getMobileNumber = mobileNumber.getText().toString().trim();
         String getLocation = location.getText().toString().trim();
         String getPassword = password.getText().toString().trim();
-        String getConfirmPassword  = confirmPassword.getText().toString().trim();
+        String getConfirmPassword = confirmPassword.getText().toString().trim();
 
         Pattern p = Pattern.compile(Utils.regEx);
         Matcher m = p.matcher(getEmailId);
@@ -142,37 +139,36 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
         Pattern p1 = Pattern.compile(Utils.passregEx);
         Matcher m1 = p1.matcher(getPassword);
 
-        if(getFullName.equals("") || getFullName.length()==0 ||
-                getEmailId.equals("") || getEmailId.length()==0 ||
-                getMobileNumber.equals("") || getMobileNumber.length()==0 ||
-                getLocation.equals("") || getLocation.length()==0 ||
-                getPassword.equals("") || getPassword.length()==0 ||
-                getConfirmPassword.equals("") || getConfirmPassword.length()==0){
+        if (getFullName.equals("") || getFullName.length() == 0 ||
+                getEmailId.equals("") || getEmailId.length() == 0 ||
+                getMobileNumber.equals("") || getMobileNumber.length() == 0 ||
+                getLocation.equals("") || getLocation.length() == 0 ||
+                getPassword.equals("") || getPassword.length() == 0 ||
+                getConfirmPassword.equals("") || getConfirmPassword.length() == 0) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"All fields are required !!");
+            new CustomToast().ShowToast(getActivity(), view, "All fields are required !!");
             return false;
-        }
-        else if(!m.find()){
+        } else if (!m.find()) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Your Email Id is Invalid !!");
+            new CustomToast().ShowToast(getActivity(), view, "Your Email Id is Invalid !!");
             return false;
-        }
-        else if(!m1.find()){
+        } else if (getMobileNumber.length() != 10) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Password must be Alphanumeric, min(8) !!");
+            new CustomToast().ShowToast(getActivity(), view, "Please Enter Valid Phone Number !!");
             return false;
-        }
-        else if(!getConfirmPassword.equals(getPassword)){
+        } else if (!m1.find()) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Both Password Doesn't Match !!");
+            new CustomToast().ShowToast(getActivity(), view, "Password must be Alphanumeric, min(8) !!");
             return false;
-        }
-        else if(!terms_conditions.isChecked()){
+        } else if (!getConfirmPassword.equals(getPassword)) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Please Select Terms & Conditions !!");
+            new CustomToast().ShowToast(getActivity(), view, "Both Password Doesn't Match !!");
             return false;
-        }
-        else{
+        } else if (!terms_conditions.isChecked()) {
+            signUpLayout.startAnimation(shakeAnimation);
+            new CustomToast().ShowToast(getActivity(), view, "Please Select Terms & Conditions !!");
+            return false;
+        } else {
             return true;
         }
     }

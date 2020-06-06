@@ -1,26 +1,32 @@
 package com.epay;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,25 +34,27 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.Nullable;
+
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private AlertDialog.Builder builder;
     private FirebaseAuth mAuth;
-    private ListView billList;
+    private RecyclerView recyclerView;
     private DatabaseReference billReference;
-    private LinearLayoutManager billManager;
     private Activity context;
-    private BillAdapter adapter;
+    private DisplayData displayData;
+    private Data data1;
+    ArrayList<Data> dataArrayList = new ArrayList<>();
+    private FirebaseRecyclerOptions<Data> options;
+    private FirebaseRecyclerAdapter<Data,MyViewHolder> adapter;
 
-    public MainActivity(){
 
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +69,8 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        // drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -71,29 +80,79 @@ public class MainActivity extends AppCompatActivity
         billReference = FirebaseDatabase.getInstance().getReference().child("Users")
                 .child(mAuth.getCurrentUser().getUid().toString()).child("Bills");
         billReference.keepSynced(true);
-        billList = (ListView) findViewById(R.id.bills);
 
-        billReference.addValueEventListener(new ValueEventListener() {
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+       // listView = findViewById(R.id.bills);
+
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference reference = databaseReference.child("Users");
+        DatabaseReference idreference = reference.child(mAuth.getCurrentUser().getUid());
+        DatabaseReference profile = idreference.child("Profile");
+
+
+
+        profile.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> bills = new ArrayList<>();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                    for(DataSnapshot subData : data.getChildren())
-                    {
-                        if(subData.getKey().toString().equalsIgnoreCase("Text")) bills.add(subData.getValue().toString());
-                    }
-                }
-
-                ArrayAdapter adp = new ArrayAdapter(context,android.R.layout.simple_list_item_1, bills);
-                billList.setAdapter(adp);
+                String name = (String) dataSnapshot.child("Name").getValue();
+                TextView navtitle = findViewById(R.id.nav_title);
+                navtitle.setText(name);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
+        options = new FirebaseRecyclerOptions.Builder<Data>().setQuery(billReference,Data.class).build();
+        adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i, @NonNull Data data) {
+                DatabaseReference reference1 = getRef(i);
+                final String key = reference1.getKey();
+
+
+                myViewHolder.textView.setText(data.getName());
+                myViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        billReference.child(key).removeValue();
+
+                    }
+                });
+
+                myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(),DataShow.class);
+                        intent.putExtra("id",key);
+                        startActivity(intent);
+                    }
+                });
+
+
+            }
+
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_recycler,parent,false);
+
+                return new MyViewHolder(view);
+            }
+        };
+
+        adapter.startListening();
+        recyclerView.setAdapter(adapter);
+
+
+
 
     }
 
@@ -119,20 +178,20 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_email) {
             Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
             emailIntent.setType("message/rfc822");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[]{"harshshah112@icloud.com"});
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Regarding More Information!!");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"harshshah112@icloud.com"});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Regarding More Information!!");
             startActivity(emailIntent);
         } else if (id == R.id.nav_about) {
-            startActivity(new Intent(MainActivity.this,AboutActivity.class));
-        }else if(id == R.id.nav_logout){
-            DialogInterface.OnClickListener dialogClickListner = new DialogInterface.OnClickListener(){
+            startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        } else if (id == R.id.nav_logout) {
+            DialogInterface.OnClickListener dialogClickListner = new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
+                    switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
                             mAuth.signOut();
-                            Intent startAuthenticate = new Intent(MainActivity.this,Authenticate.class);
+                            Intent startAuthenticate = new Intent(MainActivity.this, Authenticate.class);
                             startAuthenticate.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(startAuthenticate);
                             break;
@@ -142,7 +201,7 @@ public class MainActivity extends AppCompatActivity
                 }
             };
             builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are You Sure?").setPositiveButton("Yes",dialogClickListner).setNegativeButton("No",dialogClickListner).show();
+            builder.setMessage("Are You Sure?").setPositiveButton("Yes", dialogClickListner).setNegativeButton("No", dialogClickListner).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -150,38 +209,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public class BillAdapter extends ArrayAdapter<Bill> {
+    @Override
+    protected void onStart() {
 
-        private final Activity context;
-        private List<Bill> billL;
+        super.onStart();
+        adapter.startListening();
 
-        public BillAdapter(Activity context, List<Bill> bill) {
-            super(context, R.layout.bill);
-            this.context = context;
-            this.billL =  bill;
-        }
-
-        public View getView(int position,View view,ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.bill, null,true);
-
-            TextView text = (TextView) rowView.findViewById(R.id.data);
-            TextView time = (TextView) rowView.findViewById(R.id.create);
-
-            text.setText(billL.get(position).text);
-            time.setText(billL.get(position).created);
-            return rowView;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Nullable
-        @Override
-        public Bill getItem(int position) {
-            return billL.get(position);
-        }
     }
+
+
 }
+
+
