@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "297185437975",
+    "firebase_url": "https://epay-29de8.firebaseio.com",
+    "project_id": "epay-29de8",
+    "storage_bucket": "epay-29de8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:297185437975:android:6f2d5169887a3bdf88ef52",
+        "android_client_info": {
+          "package_name": "com.epay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "297185437975-f3lao9ri5ulg9qgn0h93e8tpepnfonlr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epay",
+            "certificate_hash": "daca8c995599866650ef9ac17645199669fb5da7"
+          }
+        },
+        {
+          "client_id": "297185437975-21o268q8unjrddganfk2p38jrdaobnvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZtMzCtfnexAA3IqPilFWloB2Gg1zvtdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "297185437975-21o268q8unjrddganfk2p38jrdaobnvo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
