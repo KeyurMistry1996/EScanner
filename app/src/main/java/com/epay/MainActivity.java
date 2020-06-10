@@ -27,6 +27,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<Data> dataArrayList = new ArrayList<>();
     private FirebaseRecyclerOptions<Data> options;
     private FirebaseRecyclerAdapter<Data,MyViewHolder> adapter;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -113,7 +116,7 @@ public class MainActivity extends AppCompatActivity
         options = new FirebaseRecyclerOptions.Builder<Data>().setQuery(billReference,Data.class).build();
         adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i, @NonNull Data data) {
+            protected void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i, @NonNull final Data data) {
                 DatabaseReference reference1 = getRef(i);
                 final String key = reference1.getKey();
 
@@ -123,6 +126,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(View v) {
                         billReference.child(key).removeValue();
+                        Task<Void> docRef = db.collection(mAuth.getUid()).document(data.getName()).delete();
 
                     }
                 });

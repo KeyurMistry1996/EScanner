@@ -2,9 +2,17 @@ package com.epay;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +22,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
 import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +62,7 @@ public class ScanActivity extends Activity {
     private String user_id;
     private String dataString;
     EditText ename;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     private static final int RC_OCR_CAPTURE = 9003;
@@ -87,12 +112,17 @@ public class ScanActivity extends Activity {
                 ename = dialogView.findViewById(R.id.username);
                 builder.setView(dialogView);
                 builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                         String name = String.valueOf(ename.getText());
                         Log.i("name", name);
-                        saveData(name);
+                        try {
+                            saveData(name);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -130,7 +160,8 @@ public class ScanActivity extends Activity {
         }
     }
 
-    private void saveData(String data) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void saveData(String data) throws IOException {
 
           DatabaseReference bill = billReference.push();
           bill.child("Name").setValue(data);
@@ -138,13 +169,87 @@ public class ScanActivity extends Activity {
           SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy hh:mm");
           bill.child("Created").setValue(date.format(new Date()));
           Log.d(TAG, "Text read: " + data);
+
+//            createPDF(data,dataString);
+
+
+//        FileOutputStream txt = openFileOutput(data+".txt", Context.MODE_PRIVATE);
+//        txt.write(dataString.getBytes());
+//        txt.close();
+//
+//        FileOutputStream pdf = openFileOutput(data+".pdf", Context.MODE_PRIVATE);
+//        pdf.write(dataString.getBytes());
+//        pdf.close();
+//
+//        FileOutputStream docx = openFileOutput(data+".docx", Context.MODE_PRIVATE);
+//        docx.write(dataString.getBytes());
+//        docx.close();
+
+
+
+//        Map<String, Object> user = new HashMap<>();
+//        user.put("TextFile", txt);
+//        user.put("PDFFile", pdf);
+//        user.put("DOCXFile", docx);
+//
+//
+//
+//        // Add a new document with a generated ID
+//        db.collection(mAuth.getUid()).document(data)
+//                .set(user)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Log.d(TAG, "DocumentSnapshot added with ID");
+//                    }
+//
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                    }
+//                });
+
+
+
+
           Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
           textValue.setText("");
 
       }
 
+    private void createPDF(String name, String data) {
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        canvas.drawCircle(50, 50, 30, paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawText(data, 80, 50, paint);
+        //canvas.drawt
+        // finish the page
+        document.finishPage(page);
 
+//        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/mypdf/"+name+".pdf";
+        File file = new File(name+".pdf");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
 
-
+        try {
+            document.writeTo(new FileOutputStream(file.getPath()));
+            Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Log.e("main", "error "+e.toString());
+            Toast.makeText(this, "Something wrong: " + e.toString(),  Toast.LENGTH_LONG).show();
+        }
+        // close the document
+        document.close();
     }
+
+
+}
 

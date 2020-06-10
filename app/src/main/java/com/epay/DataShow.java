@@ -13,17 +13,27 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Document;
 
@@ -31,6 +41,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URL;
 import java.util.Objects;
 
 public class DataShow extends AppCompatActivity {
@@ -40,6 +53,8 @@ public class DataShow extends AppCompatActivity {
     String data;
     String name;
     DownloadManager downloadManager;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +66,7 @@ public class DataShow extends AppCompatActivity {
         dataContentDate = findViewById(R.id.dataContentDate);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+         id = intent.getStringExtra("id");
 
         mAuth = FirebaseAuth.getInstance();
         billReference = FirebaseDatabase.getInstance().getReference().child("Users")
@@ -89,21 +104,31 @@ public class DataShow extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.translate:
+
+                Intent intent = new Intent(getApplicationContext(),DataTranslate.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+
+
+
                 Toast.makeText(this, "translate", Toast.LENGTH_SHORT).show();
                 return (true);
             case R.id.delete:
                 //add the function to perform here
                 billReference.removeValue();
+                Task<Void> docRef = db.collection(mAuth.getUid()).document(name).delete();
+
+
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
                 finish();
                 return (true);
             case R.id.download:
                 //add the function to perform here
-//                try {
-//                    downloadFile();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    downloadFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(this, "Download", Toast.LENGTH_SHORT).show();
                 return (true);
 
@@ -113,42 +138,10 @@ public class DataShow extends AppCompatActivity {
 
     private void downloadFile() throws IOException {
 
-        //create file
-        FileOutputStream fileOutputStream = null;
-        fileOutputStream = openFileOutput(name, MODE_PRIVATE);
-        fileOutputStream.write(data.getBytes());
-        System.out.println(getFilesDir() + "/" + name);
-        Toast.makeText(this, "" + getFilesDir() + "/" + name, Toast.LENGTH_SHORT).show();
-        fileOutputStream.close();
-
-        //create pdf
-        PdfDocument pdfDocument = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new
-                PdfDocument.PageInfo.Builder(100, 100, 1).create();
-        PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-        Canvas canvas = page.getCanvas();
-        Paint paint = new Paint();
-        canvas.drawText(data, 10, 10, paint);
-        pdfDocument.finishPage(page);
-        pdfDocument.writeTo(fileOutputStream);
-        pdfDocument.close();
 
 
-//        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(data));
-//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-//        request.setTitle("Download");
-//        request.setDescription("Downloading file....");
-//        request.allowScanningByMediaScanner();
-//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,name+".txt");
-//
-//        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-//        downloadManager.enqueue(request);
 
-
-        //Download
-        Uri uri = Uri.fromFile(new File(getFilesDir() + "/" + name));
-        DownloadManager.Request request1 = new DownloadManager.Request(uri);
+        DownloadManager.Request request1 = new DownloadManager.Request(Uri.parse(String.valueOf(getFilesDir())));
         request1.setDescription("Downloading File...");   //appears the same in Notification bar while downloading
         request1.setTitle(name);
         request1.setVisibleInDownloadsUi(false);

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "297185437975-2vi5qirqe9g5tttiksfseeda9mc2itns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.epay",
+            "certificate_hash": "b72351a54acd31d3d5ba747337e0071234025ff2"
+          }
+        },
+        {
           "client_id": "297185437975-f3lao9ri5ulg9qgn0h93e8tpepnfonlr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
