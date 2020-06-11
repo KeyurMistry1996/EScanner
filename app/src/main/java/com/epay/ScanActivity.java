@@ -106,12 +106,12 @@ public class ScanActivity extends Activity {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ScanActivity.this);
-                builder.setTitle("Enter Name");
+                builder.setTitle(R.string.entername);
                 LayoutInflater layoutInflater = getLayoutInflater();
                 View dialogView = layoutInflater.inflate(R.layout.alert_dialog_input, null);
                 ename = dialogView.findViewById(R.id.username);
                 builder.setView(dialogView);
-                builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -125,7 +125,7 @@ public class ScanActivity extends Activity {
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -148,7 +148,7 @@ public class ScanActivity extends Activity {
                     textValue.setText(dataString);
                 } else {
                     statusMessage.setText("Failure");
-                    Toast.makeText(this, "No Text captured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.notaxt, Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "No Text captured, intent data is null");
                 }
             } else {
@@ -214,7 +214,7 @@ public class ScanActivity extends Activity {
 
 
 
-          Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show();
+          Toast.makeText(this, R.string.save, Toast.LENGTH_SHORT).show();
           textValue.setText("");
 
       }

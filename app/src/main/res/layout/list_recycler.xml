@@ -20,7 +20,7 @@
             android:id="@+id/titleData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name"
+            android:text="@string/name"
             android:textSize="25sp"
             android:padding="10dp"
             android:paddingStart="15dp"

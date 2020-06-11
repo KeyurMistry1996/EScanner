@@ -12,7 +12,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Filename"
+        android:hint="@string/filename"
         android:padding="10dp"/>
 
 </LinearLayout>

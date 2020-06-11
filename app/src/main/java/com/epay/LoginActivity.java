@@ -109,11 +109,11 @@ public class LoginActivity extends Fragment implements View.OnClickListener{
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked){
-                        show_hide_password.setText("Hide Password");
+                        show_hide_password.setText(R.string.hidepassword);
                         password.setInputType(InputType.TYPE_CLASS_TEXT);
                         password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }else {
-                        show_hide_password.setText("Show Password");
+                        show_hide_password.setText(R.string.showpassword);
                         password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
                         password.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
@@ -141,7 +141,7 @@ public class LoginActivity extends Fragment implements View.OnClickListener{
     }
 
     private void startLogin() {
-        loginProgress.setMessage("Signing In..");
+        loginProgress.setMessage(String.valueOf(R.string.signing));
         loginProgress.show();
         loginProgress.setCancelable(false);
         loginProgress.setCanceledOnTouchOutside(false);
@@ -152,7 +152,7 @@ public class LoginActivity extends Fragment implements View.OnClickListener{
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                      if(!task.isSuccessful()){
-                         Toast.makeText(getActivity(),"LogIn Error", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(getActivity(),R.string.loginerror, Toast.LENGTH_SHORT).show();
                          loginProgress.dismiss();
                      }else{
                          mAuth.addAuthStateListener(mAuthListner);
@@ -175,15 +175,15 @@ public class LoginActivity extends Fragment implements View.OnClickListener{
 
         if(getEmailID.equals("") || getPassword.equals("") || getEmailID.length()==0 || getPassword.length()==0){
             loginLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Enter Both Credentials !!");
+            new CustomToast().ShowToast(getActivity(),view, String.valueOf(R.string.enterboth));
             return false;
         }else if(!m.find()){
             loginLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Your Email ID is Invalid !!");
+            new CustomToast().ShowToast(getActivity(),view, String.valueOf(R.string.invalidemail));
             return false;
         }else if(!m1.find()){
             loginLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Password must be Alphanumeric, min(8) !!");
+            new CustomToast().ShowToast(getActivity(),view, String.valueOf(R.string.passwordhint));
             return false;
         }
         else {

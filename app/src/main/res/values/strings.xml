@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EPay</string>
+    <string name="app_name">OCR Scanner</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,10 +13,80 @@
     <string name="title_activity_main">Ocr Detector Sample</string>
     <string name="ocr_header">Click &quot;Detect Text&quot; to detect text</string>
     <string name="read_text">Detect Text</string>
-    <string name="auto_focus">Auto Focus</string>
-    <string name="use_flash">Use Flash</string>
     <string name="ocr_success">Text read successfully</string>
     <string name="ocr_failure">No text captured</string>
     <string name="ocr_error">"Error reading text: %1$s"</string>
     <string name="title_activity_bill">BillActivity</string>
+    <string name="textview">TextView</string>
+
+
+    <string name="translate">Translate</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="please_enter_your_registered_email_id_below">Please enter your Registered Email Id below:</string>
+
+    <string name="back">BACK</string>
+    <string name="submit">SUBMIT</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="show_password">Show Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="not_a_member_yet_sign_up_here">Not a Member yet? Sign Up here.</string>
+    <string name="scan">Scan</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="save">Save</string>
+    <string name="read">Read</string>
+
+    <string name="confirm_password">Confirm Password</string>
+    <string name="by_clicking_signup_you_agree_all_the_terms_and_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
+
+    <string name="already_have_account_login_here">Already have Account? Login here.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="mobile_no">Mobile No</string>
+    <string name="full_name">Full Name</string>
+    <string name="location">Location</string>
+    <string name="ocr_scanner">OCR Scanner</string>
+    <string name="filename">Filename</string>
+    <string name="name">Name</string>
+    <string name="Files">Files</string>
+    <string name="Scan">Scan</string>
+    <string name="About">About</string>
+    <string name="Logout">Logout</string>
+    <string name="Translate">Translate</string>
+    <string name="Download">Download</string>
+    <string name="Delete">Delete</string>
+    <string name="Deleted">Deleted</string>
+    <string name="stringtranslationfail">Translation Failed</string>
+    <string name="Languagedataunavailable">Language Data Unavailable</string>
+    <string name="SuccessfullyStored">Successfully Stored</string>
+    <string name="passwordemailsent">Password Email Send</string>
+    <string name="emailnotsend">Email not send</string>
+    <string name="enteremail">Enter email</string>
+    <string name="invalidemail">Your Email is invalid</string>
+    <string name="hidepassword">Hide Password</string>
+    <string name="showpassword">Show Password</string>
+    <string name="signing">Signing In..</string>
+    <string name="loginerror">Login error..</string>
+    <string name="enterboth">\"Enter Both Credentials !!\"</string>
+    <string name="passwordhint">"Password must be Alphanumeric &amp; min(8) !!"></string>
+    <string name="areyousure">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="taptocapture">"Tap to capture. Pinch/Stretch to zoom"</string>
+    <string name="camerapermission">"Camera permission is not granted. Requesting permission"</string>
+    <string name="entername">Enter Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="notaxt">No text captured</string>
+    <string name="registering">"Registering.."</string>
+    <string name="reigistererror">Registration Error</string>
+    <string name="allrequired">"All fields are required !!"</string>
+    <string name="validphone">"Please Enter Valid Phone Number !!"</string>
+    <string name="notmatch">"Both Password Doesn\'t Match !!"</string>
+    <string name="selectcondition">"Please Select Terms &amp; Conditions !!"></string>
+    <string name="French">Français</string>
+    <string name="English">English</string>
+    <string name="Language">Language</string>
+
 </resources>

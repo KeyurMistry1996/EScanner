@@ -3,6 +3,8 @@ package com.epay;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity
@@ -53,10 +56,8 @@ public class MainActivity extends AppCompatActivity
     private Data data1;
     ArrayList<Data> dataArrayList = new ArrayList<>();
     private FirebaseRecyclerOptions<Data> options;
-    private FirebaseRecyclerAdapter<Data,MyViewHolder> adapter;
+    private FirebaseRecyclerAdapter<Data, MyViewHolder> adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
 
 
     @Override
@@ -88,14 +89,13 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-       // listView = findViewById(R.id.bills);
+        // listView = findViewById(R.id.bills);
 
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference reference = databaseReference.child("Users");
         DatabaseReference idreference = reference.child(mAuth.getCurrentUser().getUid());
         DatabaseReference profile = idreference.child("Profile");
-
 
 
         profile.addValueEventListener(new ValueEventListener() {
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        options = new FirebaseRecyclerOptions.Builder<Data>().setQuery(billReference,Data.class).build();
+        options = new FirebaseRecyclerOptions.Builder<Data>().setQuery(billReference, Data.class).build();
         adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i, @NonNull final Data data) {
@@ -134,8 +134,8 @@ public class MainActivity extends AppCompatActivity
                 myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(),DataShow.class);
-                        intent.putExtra("id",key);
+                        Intent intent = new Intent(v.getContext(), DataShow.class);
+                        intent.putExtra("id", key);
                         startActivity(intent);
                     }
                 });
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_recycler,parent,false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_recycler, parent, false);
 
                 return new MyViewHolder(view);
             }
@@ -154,8 +154,6 @@ public class MainActivity extends AppCompatActivity
 
         adapter.startListening();
         recyclerView.setAdapter(adapter);
-
-
 
 
     }
@@ -179,15 +177,22 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         } else if (id == R.id.nav_cam_ocr) {
             startActivity(new Intent(getApplicationContext(), ScanActivity.class));
-        } else if (id == R.id.nav_email) {
-            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType("message/rfc822");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"harshshah112@icloud.com"});
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Regarding More Information!!");
-            startActivity(emailIntent);
         } else if (id == R.id.nav_about) {
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
-        } else if (id == R.id.nav_logout) {
+        } else if (id == R.id.languageEnglish) {
+
+                setLocale("en");
+                recreate();
+
+            }
+        else if(id == R.id.languageFrench) {
+
+                setLocale("fr");
+                recreate();
+
+
+            }
+        else if (id == R.id.nav_logout) {
             DialogInterface.OnClickListener dialogClickListner = new DialogInterface.OnClickListener() {
 
                 @Override
@@ -205,12 +210,30 @@ public class MainActivity extends AppCompatActivity
                 }
             };
             builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are You Sure?").setPositiveButton("Yes", dialogClickListner).setNegativeButton("No", dialogClickListner).show();
+            builder.setMessage(R.string.areyousure).setPositiveButton(R.string.yes, dialogClickListner).setNegativeButton(R.string.no, dialogClickListner).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        locale.setDefault(locale);
+
+        Configuration configuration = new Configuration();
+        configuration.locale = locale;
+       getResources().updateConfiguration(configuration,getResources().getDisplayMetrics());
+       
+
+
+    }
+
+    public void loadLocal(){
+        SharedPreferences preferences = getSharedPreferences("Setting",Activity.MODE_PRIVATE);
+        String language = preferences.getString("My Lang","");
+        setLocale(language);
     }
 
     @Override

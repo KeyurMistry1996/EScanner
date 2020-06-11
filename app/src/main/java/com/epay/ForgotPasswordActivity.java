@@ -92,11 +92,11 @@ public class ForgotPasswordActivity extends Fragment implements View.OnClickList
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     sendEmailProgress.dismiss();
-                    Toast.makeText(getActivity(),"Reset Password Mail Sent!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),R.string.passwordemailsent,Toast.LENGTH_SHORT).show();
                     new Authenticate().replaceLoginFragment();
                 }else{
                     sendEmailProgress.dismiss();
-                    Toast.makeText(getActivity(),"Mail Not Sent!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),R.string.emailnotsend,Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -111,12 +111,12 @@ public class ForgotPasswordActivity extends Fragment implements View.OnClickList
 
         if(emailId.equals("") || emailId.length()==0){
             forgotPasswordLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Enter Email Id !!");
+            new CustomToast().ShowToast(getActivity(),view, String.valueOf(R.string.enteremail));
             return false;
         }
         else if(!m.find()){
             forgotPasswordLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(),view,"Your Email Id is Invalid !!");
+            new CustomToast().ShowToast(getActivity(),view, String.valueOf(R.string.invalidemail));
             return false;
         }
         else

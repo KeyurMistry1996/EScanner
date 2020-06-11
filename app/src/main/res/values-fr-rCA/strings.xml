@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">Scanner OCR</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Ouvrir le tiroir de navigation</string>
+
+    <string name="action_settings">Réglages</string>
+
+    <string name="ok">D\'accord</string>
+    <string name="permission_camera_rationale">L\'accès à la caméra est nécessaire pour la détection</string>
+    <string name="no_camera_permission">Cette application ne peut pas s\'exécuter car elle ne dispose pas de l\'autorisation de caméra. L\'application va maintenant se fermer.</string>
+    <string name="low_storage_error">Les dépendances OCR ne peuvent pas être téléchargées en raison du faible stockage de l\'appareil</string>
+    <string name="title_activity_main">Échantillon de détecteur Ocr</string>
+    <string name="ocr_header">Cliquez sur " Détecter le texte " pour détecter du texte</string>
+    <string name="read_text">Détecter le texte</string>
+    <string name="ocr_success">Texte lu avec succès</string>
+    <string name="ocr_failure">Aucun texte capturé</string>
+    <string name="ocr_error">"Erreur de lecture du texte:% 1 $ s"</string>
+    <string name="title_activity_bill">Activité de facturation</string>
+    <string name="textview">Affichage</string>
+
+
+    <string name="translate">Traduire</string>
+    <string name="from">De</string>
+    <string name="to">À</string>
+    <string name="please_enter_your_registered_email_id_below">Veuillez saisir votre identifiant de messagerie enregistré ci-dessous:</string>
+
+    <string name="back">RETOUR</string>
+    <string name="submit">SOUMETTRE</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="show_password">Montrer le mot de passe</string>
+    <string name="forgot_password">Mot de passe oublié?</string>
+    <string name="login">S\'identifier</string>
+    <string name="not_a_member_yet_sign_up_here">Pas encore membre? Inscrivez-vous ici.</string>
+    <string name="scan">Analyse</string>
+    <string name="auto_focus">Mise au point automatique</string>
+    <string name="use_flash">Utiliser Flash</string>
+    <string name="save">sauver</string>
+    <string name="read">Lis</string>
+
+    <string name="confirm_password">Confirmez le mot de passe</string>
+    <string name="by_clicking_signup_you_agree_all_the_terms_and_conditions">En cliquant sur Inscription, vous acceptez toutes les conditions générales.</string>
+
+    <string name="already_have_account_login_here">Vous avez déjà un compte? Connectez-vous ici.</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="mobile_no">Mobile Non</string>
+    <string name="full_name">Nom complet</string>
+    <string name="location">Emplacement</string>
+    <string name="ocr_scanner">Scanner OCR</string>
+    <string name="filename">Nom de fichier</string>
+    <string name="name">Nom</string>
+    <string name="Files">Des dossiers</string>
+    <string name="Scan">Analyse</string>
+    <string name="About">À propos de</string>
+    <string name="Logout">Se déconnecter</string>
+    <string name="Translate">Traduire</string>
+    <string name="Download">Télécharger</string>
+    <string name="Delete">Supprimer</string>
+    <string name="Deleted">Effacé</string>
+    <string name="stringtranslationfail">Échec de la traduction</string>
+    <string name="Languagedataunavailable">Données de langue non disponibles</string>
+    <string name="SuccessfullyStored">Stocké avec succès</string>
+    <string name="passwordemailsent">Mot de passe Email Envoyer</string>
+    <string name="emailnotsend">E-mail non envoyé</string>
+    <string name="enteremail">Entrez votre e-mail</string>
+    <string name="invalidemail">Votre email est invalide</string>
+    <string name="hidepassword">Masquer le mot de passe</string>
+    <string name="showpassword">Montrer le mot de passe</string>
+    <string name="signing">Connectez-vous..</string>
+    <string name="loginerror">Erreur d\'identification</string>
+    <string name="enterboth">"Entrez les deux informations d'identification !!"</string>
+    <string name="passwordhint">"Le mot de passe doit être alphanumérique et min (8) !!</string>
+    <string name="areyousure">Êtes-vous sûr?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="taptocapture">"Appuyez pour capturer. Pincez / étirez pour zoomer"</string>
+    <string name="camerapermission">"L'autorisation de la caméra n'est pas accordée. Demande d'autorisation"</string>
+    <string name="entername">Entrez le nom</string>
+    <string name="cancel">Annuler</string>
+    <string name="notaxt">Aucun texte capturé</string>
+    <string name="registering">Enregistrement..</string>
+    <string name="reigistererror">Erreur d\'enregistrement</string>
+    <string name="allrequired">"Tous les champs sont requis !!"</string>
+    <string name="validphone">"S'il vous plait entrez un numéro de téléphone valide !!"</string>
+    <string name="notmatch">"Les deux mots de passe ne correspondent pas !!"</string>
+    <string name="selectcondition">"Veuillez sélectionner les termes et conditions !!"></string>
+    <string name="French">Français</string>
+    <string name="English">English</string>
+
+
+
+</resources>

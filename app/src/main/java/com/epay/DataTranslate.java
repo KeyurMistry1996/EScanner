@@ -163,7 +163,7 @@ public class DataTranslate extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(DataTranslate.this, "Translation Faild", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(DataTranslate.this, R.string.stringtranslationfail, Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -173,7 +173,7 @@ public class DataTranslate extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         progressBar.setVisibility(View.INVISIBLE);
-                                        Toast.makeText(DataTranslate.this, "Language data unavailable", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DataTranslate.this, R.string.Languagedataunavailable, Toast.LENGTH_SHORT).show();
                                         // Model couldn’t be downloaded or other internal error.
                                         // ...
                                     }
@@ -191,7 +191,7 @@ public class DataTranslate extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         dataSnapshot.getRef().child("Text").setValue(translatedValue);
-                        Toast.makeText(DataTranslate.this, "Successfully Stored", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DataTranslate.this, R.string.SuccessfullyStored, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

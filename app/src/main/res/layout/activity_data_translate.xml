@@ -13,7 +13,7 @@
         android:layout_marginStart="177dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="176dp"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textColor="#000000"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginEnd="5dp"
         android:paddingStart="10dp"
         android:paddingTop="10dp"
-        android:text="TextView"
+        android:text="@string/textview"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="80dp"
         android:background="@color/background_color"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataValue" />
 
@@ -56,7 +56,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="25dp"
         android:background="@color/background_color"
-        android:text="Translate"
+        android:text="@string/translate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dataValue" />
 
@@ -77,7 +77,7 @@
         android:layout_marginStart="17dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="179dp"
-        android:text="From "
+        android:text="@string/from"
         app:layout_constraintEnd_toStartOf="@+id/textViewTo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="170dp"
-        android:text="To"
+        android:text="@string/to"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewFrom"
         app:layout_constraintTop_toTopOf="parent" />

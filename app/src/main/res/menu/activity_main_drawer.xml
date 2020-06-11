@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_bill"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Bills" />
+            android:title="@string/Files" />
         <item
             android:id="@+id/nav_cam_ocr"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Scan" />
-    </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_email"
-            android:icon="@drawable/ic_send_black_24dp"
-            android:title="Share" />
+            android:title="@string/Scan" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="About" />
+            android:title="@string/About" />
+    </group>
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/languageEnglish"
+            android:icon="@drawable/language"
+            android:title="@string/English"
+
+            />
+        <item
+            android:id="@+id/languageFrench"
+            android:icon="@drawable/language"
+            android:title="@string/French"
+            >
+
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
         <item android:id="@+id/nav_logout"
             android:icon="@drawable/ic_power_settings_new_black_24dp"
-            android:title="Logout"/>
+            android:title="@string/Logout"/>
     </group>
 </menu>

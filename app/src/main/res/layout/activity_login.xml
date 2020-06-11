@@ -31,7 +31,7 @@
             android:drawableLeft="@drawable/ic_mail_outline_white_24dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -52,7 +52,7 @@
             android:drawableLeft="@drawable/ic_lock_outline_white_24dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Show Password"
+                android:text="@string/show_password"
                 android:textColor="@color/text_selector"
                 android:buttonTint="@color/white"
                 android:textSize="14sp" />
@@ -87,7 +87,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:padding="5dp"
-                android:text="Forgot Password?"
+                android:text="@string/forgot_password"
                 android:textColor="@color/text_selector"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -99,7 +99,7 @@
             android:layout_marginTop="3dp"
             android:background="@drawable/button_selector"
             android:padding="3dp"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@color/colorPrimary"
             android:textSize="17sp"
             android:textStyle="bold"/>
@@ -114,7 +114,7 @@
         android:layout_marginTop="15dp"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Not a Member yet? Sign Up here."
+        android:text="@string/not_a_member_yet_sign_up_here"
         android:textColor="@color/text_selector"
         android:textSize="15sp"/>
 </RelativeLayout>

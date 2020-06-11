@@ -110,8 +110,6 @@ public class DataShow extends AppCompatActivity {
                 startActivity(intent);
 
 
-
-                Toast.makeText(this, "translate", Toast.LENGTH_SHORT).show();
                 return (true);
             case R.id.delete:
                 //add the function to perform here
@@ -119,7 +117,7 @@ public class DataShow extends AppCompatActivity {
                 Task<Void> docRef = db.collection(mAuth.getUid()).document(name).delete();
 
 
-                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.Deleted, Toast.LENGTH_SHORT).show();
                 finish();
                 return (true);
             case R.id.download:
@@ -129,7 +127,7 @@ public class DataShow extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(this, "Download", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.Download, Toast.LENGTH_SHORT).show();
                 return (true);
 
         }

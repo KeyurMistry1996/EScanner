@@ -31,7 +31,7 @@
             android:layout_marginTop="41dp"
             android:layout_marginEnd="62dp"
             android:fontFamily="sans-serif"
-            android:text="OCR Scanner"
+            android:text="@string/ocr_scanner"
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceLargeInverse"
             android:textColor="@color/white"

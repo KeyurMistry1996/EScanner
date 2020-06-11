@@ -77,14 +77,14 @@ public final class OcrCaptureActivity extends AppCompatActivity {
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
         scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
-        Snackbar.make(mGraphicOverlay, "Tap to capture. Pinch/Stretch to zoom",
+        Snackbar.make(mGraphicOverlay, R.string.taptocapture,
                 Snackbar.LENGTH_LONG)
                 .show();
     }
 
 
     private void requestCameraPermission() {
-        Log.w(TAG, "Camera permission is not granted. Requesting permission");
+        Log.w(TAG, String.valueOf(R.string.camerapermission));
 
         final String[] permissions = new String[]{Manifest.permission.CAMERA};
 

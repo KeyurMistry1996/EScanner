@@ -93,7 +93,7 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
 
     private void doSignUp() {
 
-        registerProgress.setMessage("Registering..");
+        registerProgress.setMessage(String.valueOf(R.string.registering));
         registerProgress.show();
         registerProgress.setCancelable(false);
         registerProgress.setCanceledOnTouchOutside(false);
@@ -105,7 +105,7 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Register Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.reigistererror, Toast.LENGTH_SHORT).show();
                     registerProgress.dismiss();
                 } else {
                     final String user_id = mAuth.getCurrentUser().getUid();
@@ -146,27 +146,27 @@ public class SignUpActivity extends Fragment implements View.OnClickListener {
                 getPassword.equals("") || getPassword.length() == 0 ||
                 getConfirmPassword.equals("") || getConfirmPassword.length() == 0) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(), view, "All fields are required !!");
+            new CustomToast().ShowToast(getActivity(), view, String.valueOf(R.string.allrequired));
             return false;
         } else if (!m.find()) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(), view, "Your Email Id is Invalid !!");
+            new CustomToast().ShowToast(getActivity(), view, String.valueOf(R.string.invalidemail));
             return false;
         } else if (getMobileNumber.length() != 10) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(), view, "Please Enter Valid Phone Number !!");
+            new CustomToast().ShowToast(getActivity(), view, String.valueOf(R.string.validphone));
             return false;
         } else if (!m1.find()) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(), view, "Password must be Alphanumeric, min(8) !!");
+            new CustomToast().ShowToast(getActivity(), view, String.valueOf(R.string.passwordhint));
             return false;
         } else if (!getConfirmPassword.equals(getPassword)) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(), view, "Both Password Doesn't Match !!");
+            new CustomToast().ShowToast(getActivity(), view, String.valueOf(R.string.notmatch));
             return false;
         } else if (!terms_conditions.isChecked()) {
             signUpLayout.startAnimation(shakeAnimation);
-            new CustomToast().ShowToast(getActivity(), view, "Please Select Terms & Conditions !!");
+            new CustomToast().ShowToast(getActivity(), view, String.valueOf(R.string.selectcondition));
             return false;
         } else {
             return true;
