@@ -1,18 +1,26 @@
 package com.epay;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -29,6 +37,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,8 +48,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -51,15 +66,23 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     private DatabaseReference billReference;
+    DatabaseReference profile;
     private Activity context;
     private DisplayData displayData;
+    private ImageView imageView;
     private Data data1;
     ArrayList<Data> dataArrayList = new ArrayList<>();
     private FirebaseRecyclerOptions<Data> options;
     private FirebaseRecyclerAdapter<Data, MyViewHolder> adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
+    private static final int PICK_IMAGE_REQUEST = 234;
+    private Uri filePath;
+    private StorageReference storageReference;
+    private static DatabaseReference mDatabase;
+    private static DatabaseReference userReference;
+    private static DatabaseReference profileReference;
+    public String downloadUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +91,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
+        storageReference = FirebaseStorage.getInstance().getReference("upload");
         context = MainActivity.this;
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -79,6 +103,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
         billReference = FirebaseDatabase.getInstance().getReference().child("Users")
@@ -95,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference reference = databaseReference.child("Users");
         DatabaseReference idreference = reference.child(mAuth.getCurrentUser().getUid());
-        DatabaseReference profile = idreference.child("Profile");
+        profile = idreference.child("Profile");
 
 
         profile.addValueEventListener(new ValueEventListener() {
@@ -103,8 +130,25 @@ public class MainActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 String name = (String) dataSnapshot.child("Name").getValue();
+
                 TextView navtitle = findViewById(R.id.nav_title);
                 navtitle.setText(name);
+                imageView = findViewById(R.id.imageView2);
+
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showFileChooser();
+                    }
+                });
+                String download = (String) dataSnapshot.child("profileurl").getValue();
+
+                Picasso.with(MainActivity.this)
+                        .load(download)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .into(imageView);
+
+
             }
 
             @Override
@@ -192,6 +236,10 @@ public class MainActivity extends AppCompatActivity
 
 
             }
+        else if(id == R.id.nav_scanner)
+        {
+            startActivity(new Intent(MainActivity.this,barcode.class));
+        }
         else if (id == R.id.nav_logout) {
             DialogInterface.OnClickListener dialogClickListner = new DialogInterface.OnClickListener() {
 
@@ -243,7 +291,66 @@ public class MainActivity extends AppCompatActivity
         adapter.startListening();
 
     }
+    public String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
 
+    private void showFileChooser() {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+
+                final StorageReference sRef = storageReference.child("profile" + "." + getFileExtension(filePath));
+                sRef.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        return sRef.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful())
+                        {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                }
+                            }, 500);
+                        }
+
+                        downloadUri = task.getResult().toString();
+                        Toast.makeText(context, downloadUri, Toast.LENGTH_SHORT).show();
+
+
+
+                        profile.child("profileurl").setValue(downloadUri);
+
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
 

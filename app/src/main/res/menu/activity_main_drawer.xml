@@ -15,6 +15,10 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_outline_black_24dp"
             android:title="@string/About" />
+        <item
+        android:id="@+id/nav_scanner"
+        android:icon="@drawable/ic_baseline_scanner_24"
+        android:title="@string/barcode" />
     </group>
     <group android:checkableBehavior="single">
 

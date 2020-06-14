@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EPay.iml" filepath="$PROJECT_DIR$/EPay.iml" group="EPay" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EScanner.iml" filepath="$PROJECT_DIR$/.idea/modules/EScanner.iml" group="EScanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/EScanner-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/EScanner-app.iml" group="EScanner/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="EPay/app" />
     </modules>
   </component>

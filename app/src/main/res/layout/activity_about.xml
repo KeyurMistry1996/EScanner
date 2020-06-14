@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="EPay Software"
+        android:text="Escanner Software"
         style="@style/Base.TextAppearance.AppCompat.Large"
         android:textAlignment="center"
         android:gravity="center_horizontal" />

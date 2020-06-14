@@ -19,4 +19,8 @@
         android:id="@+id/delete"
         android:title="@string/Delete"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/share"
+        android:title="@string/share"
+        app:showAsAction="never"/>
 </menu>

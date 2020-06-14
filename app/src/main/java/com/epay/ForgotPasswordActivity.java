@@ -22,9 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Harsh on 2/23/2018.
- */
 public class ForgotPasswordActivity extends Fragment implements View.OnClickListener{
 
     private static View view;

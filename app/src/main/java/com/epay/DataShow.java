@@ -122,13 +122,24 @@ public class DataShow extends AppCompatActivity {
                 return (true);
             case R.id.download:
                 //add the function to perform here
-                try {
-                    downloadFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    downloadFile();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 Toast.makeText(this, R.string.Download, Toast.LENGTH_SHORT).show();
                 return (true);
+            case R.id.share:
+                String msg = dataContent.getText().toString();
+
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+
+
+                emailIntent.putExtra(Intent.EXTRA_TEXT, msg);
+                startActivity(emailIntent);
+
+
 
         }
         return (super.onOptionsItemSelected(item));

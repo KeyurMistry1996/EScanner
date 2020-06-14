@@ -1,8 +1,5 @@
 package com.epay;
 
-/**
- * Created by Harsh on 01-04-2018.
- */
 
 public class Bill{
 

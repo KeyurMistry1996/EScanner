@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by Harsh on 2/23/2018.
- */
+
 
 public class CustomToast {
 

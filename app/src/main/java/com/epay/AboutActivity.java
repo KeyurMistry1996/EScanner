@@ -5,9 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-/**
- * Created by Harsh on 2/23/2018.
- */
+
 
 public class AboutActivity extends AppCompatActivity {
 

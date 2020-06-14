@@ -762,8 +762,7 @@ public class CameraSource {
                 synchronized (mLock) {
                     while (mActive && (mPendingFrameData == null)) {
                         try {
-                            // Wait for the next frame to be received from the camera, since we
-                            // don't have it yet.
+
                             mLock.wait();
                         } catch (InterruptedException e) {
                             Log.d(TAG, "Frame processing loop terminated.", e);
@@ -772,10 +771,7 @@ public class CameraSource {
                     }
 
                     if (!mActive) {
-                        // Exit the loop once this camera source is stopped or released.  We check
-                        // this here, immediately after the wait() above, to handle the case where
-                        // setActive(false) had been called, triggering the termination of this
-                        // loop.
+
                         return;
                     }
 
@@ -787,16 +783,11 @@ public class CameraSource {
                             .setRotation(mRotation)
                             .build();
 
-                    // Hold onto the frame data locally, so that we can use this for detection
-                    // below.  We need to clear mPendingFrameData to ensure that this buffer isn't
-                    // recycled back to the camera before we are done using that data.
+
                     data = mPendingFrameData;
                     mPendingFrameData = null;
                 }
 
-                // The code below needs to run outside of synchronization, because this will allow
-                // the camera to add pending frame(s) while we are running detection on the current
-                // frame.
 
                 try {
                     mDetector.receiveFrame(outputFrame);

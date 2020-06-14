@@ -88,5 +88,14 @@
     <string name="French">Français</string>
     <string name="English">English</string>
     <string name="Language">Language</string>
+    <string name="barcode">Barcode</string>
+    <string name="permissionGranted">Permission Granted, Now you can access camera</string>
+    <string name="permissionDenied">Permission Denied, You cannot access and camera</string>
+    <string name="GP">Granted Permission</string>
+    <string name="scanResult">Scan Result</string>
+    <string name="Visit">Visit</string>
+    <string name="QR">QRCodeScanner</string>
+    <string name="both">You need to allow access to both the permissions</string>
+    <string name="share">Share</string>
 
 </resources>

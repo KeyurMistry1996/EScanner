@@ -9,9 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-/**
- * Created by Harsh on 2/23/2018.
- */
 
 public class Authenticate extends AppCompatActivity {
 

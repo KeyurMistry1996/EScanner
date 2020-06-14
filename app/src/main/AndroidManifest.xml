@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.epay">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.permission.camera"/>
+    <uses-feature android:name="android.permission.camera.autofocus"/>
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
@@ -22,7 +25,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DataTranslate"></activity>
+        <activity android:name=".barcode"></activity>
+        <activity android:name=".DataTranslate" />
         <activity android:name=".DataShow" />
 
         <meta-data
